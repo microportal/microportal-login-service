@@ -1,0 +1,18 @@
+services:
+  - docker
+
+env:
+  - VERSION="1.0.0"
+
+script:
+  - docker build . -t microportal/login-service:${VERSION} --no-cache
+  - docker tag microportal/login-service:${VERSION} microportal/login-service:latest
+
+before_deploy:
+  - echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+
+deploy:
+  provider: script
+  script: docker push microportal/login-service
+  on:
+    branch: master
