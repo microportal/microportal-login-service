@@ -38,5 +38,6 @@ func main() {
 	router.HandleFunc("/login", lc.Login).Methods(http.MethodPost)
 	router.HandleFunc("/token", lc.ValidateToken).Methods(http.MethodPost)
 
+	fmt.Println("Server listening on port: ", port)
 	log.Fatal(http.ListenAndServe(addr, router))
 }
